@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CUSA Football Media Day — ESPN Production Rundown 2026</title>
+<style>
+:root {
+  --navy:#00263A; --navy-lt:#1A3A4A; --gray:#BFCED6;
+  --white:#FFFFFF; --red:#E40046; --blue:#00B5E2;
+  --green:#A7D500; --espn-red:#EF4035; --gold:#89734C;
+  --break-bg:#2D4A5A;
+  --sponsor-bg:#E8F5E9; --sponsor-h:#C8E6C9;
+  --video-bg:#E3F2FD; --gfx-bg:#FFF8E1;
+  --edit-bg:#FFFDE7; --edit-bor:#F9A825;
+  --alt-bg:#F7F9FA;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;font-size:13px;background:#EEF1F4;color:#1a1a1a}
+
+/* ── TOP BAR ── */
+.top-bar{
+  background:var(--navy);padding:0 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:60px;position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 10px rgba(0,0,0,0.5);
+}
+.logo-area{display:flex;align-items:center;gap:14px}
+.cusa-logo{height:44px;width:auto;display:block}
+.title-stack{display:flex;flex-direction:column;gap:1px}
+.show-title{font-size:13px;font-weight:700;color:white;letter-spacing:0.3px}
+.show-meta{font-size:13px;color:var(--gray)}
+.runtime-badge{
+  background:var(--espn-red);color:white;font-size:13px;font-weight:700;
+  padding:4px 12px;border-radius:4px;letter-spacing:0.5px;white-space:nowrap;
+}
+.top-actions{display:flex;gap:6px;align-items:center}
+.btn{padding:6px 13px;border-radius:4px;border:none;cursor:pointer;
+      font-size:13px;font-weight:700;font-family:Arial;transition:all .15s}
+.btn-save{background:var(--green);color:#1a1a1a}
+.btn-save:hover{background:#8BBE00}
+.btn-export{background:var(--espn-red);color:white}
+.btn-export:hover{background:#D43A30}
+.btn-print{background:var(--gray);color:var(--navy)}
+.btn-print:hover{background:#A8B8C0}
+.btn-blue{background:var(--blue);color:white}
+.btn-blue:hover{background:#009AC0}
+.btn-sm{padding:4px 9px;font-size:13px}
+.save-ok{font-size:13px;color:var(--green);opacity:0;transition:opacity .4s;margin-right:4px}
+
+/* ── STATUS BAR ── */
+.status-bar{
+  background:var(--navy-lt);color:var(--gray);padding:4px 16px;
+  font-size:13px;display:flex;gap:18px;align-items:center;
+  border-bottom:2px solid var(--espn-red);flex-wrap:wrap;
+}
+.status-item span{color:white;font-weight:700}
+.last-mod{margin-left:auto;color:var(--gray);font-style:italic}
+.last-mod span{color:var(--blue)}
+
+/* ── TABS ── */
+.tabs-bar{
+  background:var(--navy-lt);padding:0 16px;display:flex;gap:2px;
+}
+.tab-btn{
+  padding:9px 18px;border:none;cursor:pointer;font-size:13px;font-weight:700;
+  font-family:Arial;color:var(--gray);background:transparent;
+  border-bottom:3px solid transparent;transition:all .15s;
+}
+.tab-btn.active{color:white;border-bottom-color:var(--espn-red);background:rgba(255,255,255,0.06)}
+.tab-btn:hover:not(.active){color:white}
+.tab-content{display:none;padding:14px 16px}
+.tab-content.active{display:block}
+
+/* ── TOOLBAR ── */
+.toolbar{
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  margin-bottom:10px;background:white;padding:8px 12px;
+  border-radius:6px;box-shadow:0 1px 3px rgba(0,0,0,.1);
+}
+.toolbar label{font-size:13px;font-weight:700;color:#555}
+.toolbar select,.toolbar input[type=text]{
+  padding:4px 7px;border:1px solid #ccc;border-radius:4px;font-size:13px;font-family:Arial
+}
+.filter-badge{font-size:13px;background:var(--navy);color:white;
+               padding:2px 8px;border-radius:10px}
+
+/* ── RUNDOWN TABLE ── */
+.rundown-wrap{overflow-x:hidden;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+table.rundown{width:100%;border-collapse:collapse;background:white;table-layout:fixed}
+table.rundown th{
+  background:var(--navy);color:white;padding:7px 5px;font-size:13px;
+  text-align:center;border:1px solid var(--navy-lt);
+  position:sticky;top:62px;z-index:10;white-space:nowrap;
+}
+table.rundown td{padding:4px 4px;border:1px solid #e0e0e0;vertical-align:top;font-size:13px;line-height:1.4;word-break:break-word;overflow-wrap:break-word;max-width:0;overflow:hidden;}
+
+/* Segment / break header rows */
+tr.seg-hdr td{font-weight:700;font-size:13px;padding:7px 10px;border-color:rgba(255,255,255,0.15)}
+tr.break-hdr td{
+  background:var(--break-bg)!important;color:var(--gray);
+  font-weight:600;font-size:13px;padding:3px 10px;border-color:#1A3A4A
+}
+tr.content-row:nth-child(even) td{background:#F9FAFC}
+tr.content-row:nth-child(odd) td{background:white}
+tr.content-row.has-sponsor td{background:#F1F8E9}
+tr.content-row.is-break-row td{background:#2B4059!important;color:#BFCED6}
+
+/* cell types */
+.cell-gfx{background:var(--gfx-bg)!important;color:#333300;font-weight:500}
+.cell-vid{background:var(--video-bg)!important;color:#003366}
+.cell-spon{background:var(--sponsor-h)!important;color:#1B5E20;font-weight:700;font-size:13px}
+
+/* editable cells */
+.editable{min-height:18px;outline:none;border-radius:2px;padding:2px 3px;cursor:text}
+.editable:focus{background:var(--edit-bg)!important;box-shadow:0 0 0 2px var(--edit-bor);outline:none}
+.editable-cell{background:var(--edit-bg)!important}
+.url-in{font-size:13px;color:var(--espn-red);background:transparent;border:none;
+         outline:none;width:100%;font-family:Arial;cursor:text;word-break:break-all}
+.url-in:focus{background:var(--edit-bg);border-radius:2px}
+.box-in{font-size:13px;color:var(--blue);background:transparent;border:none;
+         outline:none;width:100%;font-family:Arial}
+.box-in:focus{background:var(--video-bg);border-radius:2px;outline:none}
+.row-num{color:#bbb;font-size:13px;text-align:center}
+.time-cell{text-align:center;font-weight:700;white-space:nowrap;font-size:13px}
+.len-cell{text-align:center;color:#666;white-space:nowrap;font-size:13px}
+.ph-badge{display:inline-block;background:#FFF3E0;color:#E65100;
+           font-size:13px;font-weight:700;padding:1px 5px;border-radius:8px;
+           border:1px solid #FFB300;margin-bottom:2px}
+.img-area{text-align:center}
+.img-thumb{width:34px;height:34px;object-fit:contain;border-radius:3px;
+            border:1px solid #ddd;display:block;margin:0 auto 2px}
+.up-btn{font-size:13px;padding:2px 5px;border-radius:3px;background:var(--gold);
+         color:white;border:none;cursor:pointer;display:block;margin:0 auto}
+.up-btn:hover{background:#7A6340}
+
+/* Segment column pill */
+.seg-pill{
+  font-size:13px;font-weight:700;padding:2px 6px;border-radius:10px;
+  white-space:nowrap;display:inline-block;
+}
+
+/* ── SPONSORSHIP DASHBOARD ── */
+.dash-header{
+  display:flex;align-items:center;gap:12px;
+  background:var(--navy);color:white;padding:10px 14px;
+  border-radius:8px 8px 0 0;margin-bottom:0;
+}
+.dash-header img{height:36px;width:auto}
+.dash-header-title{font-size:14px;font-weight:700}
+.dash-header-sub{font-size:13px;color:var(--gray)}
+.dash-stats{
+  background:var(--break-bg);color:var(--gray);padding:6px 14px;
+  font-size:13px;display:flex;gap:16px;margin-bottom:12px;
+  border-radius:0 0 4px 4px;
+}
+.dash-stats span{color:white;font-weight:700}
+.dash-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:12px
+}
+.sponsor-card{
+  background:white;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.1);
+  overflow:hidden;border:1px solid #e0e0e0;transition:box-shadow .15s;
+}
+.sponsor-card:hover{box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.card-header{
+  color:white;padding:8px 12px;display:flex;align-items:center;gap:8px
+}
+.card-num{
+  background:rgba(255,255,255,0.2);font-weight:900;font-size:13px;
+  width:26px;height:26px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  border:2px solid rgba(255,255,255,0.4);
+}
+.card-label{font-weight:700;font-size:13px;flex:1}
+.card-type{font-size:13px;background:rgba(0,0,0,0.2);padding:2px 6px;border-radius:8px}
+.card-body{padding:10px 12px}
+.field-group{margin-bottom:9px}
+.field-label{font-size:13px;font-weight:700;color:#666;text-transform:uppercase;margin-bottom:3px}
+.field-input{
+  width:100%;padding:5px 7px;border:1.5px solid var(--edit-bor);
+  border-radius:4px;font-size:13px;font-family:Arial;background:var(--edit-bg);
+  transition:border-color .15s;
+}
+.field-input:focus{border-color:#F57F17;outline:none;background:white}
+.field-input.box-field{border-color:#0288D1;background:var(--video-bg);color:var(--blue)}
+.field-input.box-field:focus{border-color:var(--blue)}
+.status-sel{
+  width:100%;padding:5px 7px;border:1.5px solid #ccc;
+  border-radius:4px;font-size:13px;font-family:Arial;background:white;cursor:pointer;
+}
+.s-pending{border-color:#FF9800;background:#FFF3E0}
+.s-confirmed{border-color:#4CAF50;background:#E8F5E9;color:#1B5E20;font-weight:700}
+.s-tbd{border-color:#9E9E9E;background:#F5F5F5}
+.s-cancelled{border-color:#F44336;background:#FFEBEE;color:#C62828}
+.loc-info{font-size:13px;color:#555;background:#F5F5F5;padding:5px 7px;
+           border-radius:4px;margin-bottom:9px;line-height:1.5}
+.occ-list{font-size:13px;color:#444;background:#E8F5E9;padding:4px 7px;
+           border-radius:4px;margin-bottom:9px;line-height:1.6;
+           border-left:3px solid #4CAF50}
+.occ-item{display:block}
+.card-img-area{
+  text-align:center;padding:8px;background:#FAFAFA;
+  border:2px dashed #ddd;border-radius:6px;cursor:pointer;transition:border-color .15s;
+}
+.card-img-area:hover{border-color:var(--gold)}
+.card-img-area img{max-width:100%;max-height:80px;object-fit:contain}
+.card-img-ph{color:#aaa;font-size:13px}
+.card-img-ph span{font-size:20px;display:block;margin-bottom:3px}
+
+
+/* ── VIDEO ASSET NOTE (Sponsor Spots) ── */
+.video-asset-note{font-size:13px;color:#1565C0;background:var(--video-bg);
+  padding:7px 10px;border-radius:4px;margin-bottom:2px;
+  border-left:3px solid var(--blue);font-style:italic}
+
+/* ── DELETE ROW BUTTON (Rundown) ── */
+/* ── ROW ACTION BUTTONS ── */
+.row-action-td{text-align:center;white-space:nowrap;vertical-align:middle;padding:2px 4px!important;}
+.del-row-btn{
+  background:#FFEBEE;border:1px solid #FFCDD2;cursor:pointer;
+  color:#E40046;font-size:14px;font-weight:700;
+  padding:2px 7px;border-radius:4px;line-height:1;
+  transition:all .15s;display:inline-block;
+}
+.del-row-btn:hover{background:#E40046;color:white;border-color:#E40046;}
+.ins-row-btn{
+  background:#E8F5E9;border:1px solid #C8E6C9;cursor:pointer;
+  color:#2E7D32;font-size:14px;font-weight:700;
+  padding:2px 7px;border-radius:4px;line-height:1;
+  transition:all .15s;display:inline-block;
+}
+.ins-row-btn:hover{background:#2E7D32;color:white;border-color:#2E7D32;}
+th.del-th{width:52px;text-align:center;}
+
+/* ── NEW ROW (freshly inserted, highlighted) ── */
+tr.new-row td{background:#FFFDE7!important;animation:rowFlash .6s ease-out;}
+@keyframes rowFlash{from{background:#A7D500!important;}to{background:#FFFDE7!important;}}
+
+/* ── INLINE EDITABLE CELLS ── */
+.inline-edit{
+  width:100%;min-height:18px;font-size:13px;font-family:Arial;
+  background:transparent;border:none;outline:none;
+  color:inherit;padding:1px 2px;border-radius:2px;resize:none;
+  white-space:pre-wrap;word-break:break-word;cursor:text;
+  display:block;
+}
+.inline-edit:hover{background:rgba(249,168,37,0.08);}
+.inline-edit:focus{background:var(--edit-bg);box-shadow:0 0 0 2px var(--edit-bor);
+  outline:none;border-radius:2px;color:#000;}
+td.cell-gfx .inline-edit:focus{background:#FFF8E1;}
+td.cell-vid .inline-edit:focus{background:#E3F2FD;}
+
+/* ── UNDO TOAST ── */
+.undo-toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:#323232;color:white;padding:10px 18px;border-radius:6px;
+  font-size:13px;display:flex;align-items:center;gap:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,.3);z-index:500;
+  animation:toastIn .2s ease-out;
+}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+.undo-toast button{background:none;border:none;color:#A7D500;font-weight:700;
+  font-size:13px;cursor:pointer;font-family:Arial;padding:0;}
+
+/* ── ADD ROW BUTTON (toolbar) ── */
+.btn-add-row{background:#A7D500;color:#1a1a1a;}
+.btn-add-row:hover{background:#8BBE00;}
+
+/* ── DASHBOARD CARD REMOVE BUTTON ── */
+.card-remove-btn{
+  margin-left:auto;background:rgba(255,255,255,0.15);border:none;cursor:pointer;
+  color:white;font-size:16px;border-radius:4px;padding:2px 7px;line-height:1;
+  transition:background .15s;flex-shrink:0;
+}
+.card-remove-btn:hover{background:rgba(228,0,70,0.7);}
+
+/* ── ADD SPONSOR SLOT BUTTON ── */
+.add-slot-btn{
+  width:100%;padding:12px;border:2px dashed #4CAF50;background:white;
+  color:#1B5E20;font-size:14px;font-weight:700;font-family:Arial;
+  border-radius:8px;cursor:pointer;transition:all .15s;margin-bottom:4px;
+}
+.add-slot-btn:hover{background:#E8F5E9;border-color:#2E7D32;}
+
+/* ── BREAK ASSIGNMENTS (Paid Spots) ── */
+.break-assignments{
+  display:flex;flex-wrap:wrap;gap:6px;padding:8px;background:#F0F8FF;
+  border-radius:4px;border:1px solid #90CAF9;
+}
+.break-chip{
+  display:flex;align-items:center;gap:4px;font-size:13px;
+  background:white;border:1px solid #90CAF9;border-radius:12px;
+  padding:3px 9px;cursor:pointer;user-select:none;transition:all .15s;
+}
+.break-chip.active{background:#1565C0;color:white;border-color:#1565C0;}
+.break-chip:hover:not(.active){background:#E3F2FD;}
+
+/* ── MODAL OVERLAY ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);
+  z-index:300;align-items:center;justify-content:center;
+}
+.modal-overlay.open{display:flex;}
+.modal-box{
+  background:white;border-radius:10px;padding:24px;width:90%;max-width:520px;
+  box-shadow:0 12px 40px rgba(0,0,0,.3);max-height:90vh;overflow-y:auto;
+}
+.modal-box h3{color:var(--navy);font-size:16px;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:space-between;}
+.modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:#888;}
+.modal-close:hover{color:#E40046;}
+.modal-field{margin-bottom:12px;}
+.modal-field label{display:block;font-size:13px;font-weight:700;
+  color:#555;margin-bottom:4px;}
+.modal-field input,.modal-field select,.modal-field textarea{
+  width:100%;padding:7px 9px;border:1.5px solid #ccc;border-radius:4px;
+  font-size:13px;font-family:Arial;transition:border-color .15s;
+}
+.modal-field input:focus,.modal-field select:focus,.modal-field textarea:focus{
+  border-color:var(--navy);outline:none;}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;}
+
+/* ── EDITABLE TIME / LENGTH INPUTS ── */
+.time-in {
+  width:72px; text-align:center; font-weight:700; font-size:13px;
+  background:transparent; border:none; outline:none; font-family:Arial;
+  color:inherit; cursor:text; padding:1px 2px; border-radius:2px;
+}
+.time-in:hover { background:rgba(255,255,255,0.15); }
+.time-in:focus { background:var(--edit-bg); color:#000; box-shadow:0 0 0 2px var(--edit-bor); border-radius:2px; }
+tr.is-break-row .time-in { color:var(--gray); }
+.len-in {
+  width:44px; text-align:center; font-size:13px;
+  background:transparent; border:none; outline:none; font-family:Arial;
+  color:#666; cursor:text; padding:1px 2px; border-radius:2px;
+}
+.len-in:hover { background:#f0f0f0; }
+.len-in:focus { background:var(--edit-bg); color:#000; box-shadow:0 0 0 2px var(--edit-bor); border-radius:2px; }
+
+/* ── FIT-TO-WIDTH: inputs & editable divs fill their column ── */
+table.rundown input.time-in{width:100%;min-width:0;box-sizing:border-box;}
+table.rundown input.len-in {width:100%;min-width:0;box-sizing:border-box;}
+table.rundown input.box-in {width:100%;min-width:0;box-sizing:border-box;}
+table.rundown input.url-in {width:100%;min-width:0;box-sizing:border-box;}
+table.rundown .inline-edit  {width:100%;min-width:0;box-sizing:border-box;white-space:pre-wrap;word-break:break-word;}
+table.rundown .editable     {width:100%;min-width:0;box-sizing:border-box;word-break:break-word;}
+table.rundown .up-btn       {max-width:100%;}
+/* Segment / break header spans */
+tr.seg-hdr  td{white-space:normal;word-break:break-word;}
+tr.break-hdr td{white-space:normal;}
+/* Reduce padding on action column */
+td.row-action-td{padding:3px 2px!important;}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="logo-area">
+    <img class="cusa-logo" src="data:image/png;base64,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" alt="CUSA Logo">
+    <div class="title-stack">
+      <div class="show-title">Football Media Day  ·  ESPN Production Rundown  ·  2026</div>
+      <div class="show-meta">Conference USA  ·  Interactive Production Document</div>
+    </div>
+    <div class="runtime-badge">TOTAL RUN TIME: <span id="totalRunTime">5:49:30</span></div>
+  </div>
+  <div class="top-actions">
+    <span class="save-ok" id="saveStatus">✓ Saved</span>
+    <button class="btn btn-save" onclick="saveAll()">💾 Save</button>
+    <button class="btn btn-export" onclick="exportCSV()">📤 CSV</button>
+    <button class="btn btn-print" onclick="window.print()">🖨 Print</button>
+  </div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <div class="status-item">Elements: <span id="st-total">–</span></div>
+  <div class="status-item">Segments: <span>12</span></div>
+  <div class="status-item">Sponsor Slots: <span>17</span></div>
+  <div class="status-item">Confirmed: <span id="st-conf">0/17</span></div>
+  <div class="status-item">Graphics Cues: <span id="st-gfx">–</span></div>
+  <div class="status-item">Video Features: <span id="st-vid">–</span></div>
+  <div class="status-item">Run Time: <span id="statusRunTime">5:49:30</span></div>
+  <div class="last-mod">Last Modified: <span id="lastMod">—</span></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-bar">
+  <button class="tab-btn active" onclick="openTab('tab-rundown')" id="btn-tab-rundown">📋 Production Rundown</button>
+  <button class="tab-btn" onclick="openTab('tab-dashboard')" id="btn-tab-dashboard">💰 Sponsorship Dashboard</button>
+</div>
+
+<!-- ── TAB 1: RUNDOWN ── -->
+<div class="tab-content active" id="tab-rundown">
+  <div class="toolbar">
+    <label>Segment:</label>
+    <select id="filterSeg" onchange="applyFilters()"><option value="">All</option></select>
+    <label>Type:</label>
+    <select id="filterType" onchange="applyFilters()">
+      <option value="">All</option>
+      <option value="graphic">Has Graphic</option>
+      <option value="video">Has Video</option>
+      <option value="sponsor">Has Sponsor</option>
+      <option value="url">Has URL</option>
+      <option value="break">Breaks/PSA</option>
+    </select>
+    <label>Search:</label>
+    <input type="text" id="searchBox" placeholder="Search…" oninput="applyFilters()" style="width:160px">
+    <button class="btn btn-print btn-sm" onclick="clearFilters()">✕ Clear</button>
+    <span class="filter-badge" id="filterCount"></span>
+  </div>
+  <div class="rundown-wrap">
+    <table class="rundown" id="rundownTable">
+      <thead><tr>
+        <th style="width:2%">#</th>
+        <th style="width:5%">Time CT</th>
+        <th style="width:8%">Segment Title</th>
+        <th style="width:9%">Graphic</th>
+        <th style="width:9%">Video</th>
+        <th style="width:6%">Prod Notes</th>
+        <th style="width:3%">Len</th>
+        <th style="width:7%">Sponsorship</th>
+        <th style="width:7%">Sponsor Name ✏</th>
+        <th style="width:8%">Box Link ✏</th>
+        <th style="width:9%">Video URL ✏</th>
+        <th style="width:4%">Image</th>
+        <th style="width:6%">Notes ✏</th>
+        <th class="del-th" style="width:3%" title="Insert / Delete">＋ ✕</th>
+      </tr></thead>
+      <tbody id="rundownBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── TAB 2: SPONSORSHIP DASHBOARD ── -->
+<div class="tab-content" id="tab-dashboard">
+  <div class="dash-header">
+    <img src="data:image/png;base64,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" alt="CUSA">
+    <div>
+      <div class="dash-header-title">Sponsorship Dashboard  ·  Football Media Day 2026</div>
+      <div class="dash-header-sub">Conference USA  ·  ESPN Production  ·  17 Sponsor Slots  ·  Run Time 5:49:30</div>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:8px">
+      <button class="btn btn-save btn-sm" onclick="saveAll()">💾 Save</button>
+      <button class="btn btn-export btn-sm" onclick="exportSponsorCSV()">📤 Export</button>
+    </div>
+  </div>
+  <div class="dash-stats" id="dashStats">
+    Confirmed: <span id="ds-conf">0</span> &nbsp;·&nbsp;
+    Pending: <span id="ds-pend">17</span> &nbsp;·&nbsp;
+    TBD: <span id="ds-tbd">0</span> &nbsp;·&nbsp;
+    Cancelled: <span id="ds-canc">0</span> &nbsp;·&nbsp;
+    Total Placements: <span>36</span> &nbsp;·&nbsp;
+    Run Time: <span id="dashRunTime">5:49:30</span>
+  </div>
+  <div class="dash-grid" id="dashGrid"></div>
+</div>
+
+<!-- ── TAB 3: GRAPHICS EXPORT ── -->
+<input type="file" id="fileInput" accept="image/*" style="display:none">
+<input type="file" id="fileInputCard" accept="image/*" style="display:none">
+
+<script>
+const ROWS     = [{"type": "seg_hdr", "time": "", "title": "SEGMENT 1 - JUDY MACLEOD", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:00 AM", "title": "Start of the Show", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:01 AM", "title": "Opening Segment", "graphic": "", "video": "Football Hype Video", "prodNote": "", "length": "1:30", "sponsorship": "", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:02 AM", "title": "Intro", "graphic": "Locator", "video": "Venue B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "Title Sponsor (1)", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:03 AM", "title": "Intro", "graphic": "Host Name Font", "video": "Host on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:04 AM", "title": "Judy MacLeod", "graphic": "Introduce Judy MacLeod CUSA Commissioner", "video": "Host and Judy on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:05 AM", "title": "Judy MacLeod", "graphic": "Judy MacLeod Name Font", "video": "Judy on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:06 AM", "title": "Judy MacLeod", "graphic": "Conference Standings", "video": "Host and Judy or Video B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "Conference Standings Sponsor (2)", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:13 AM", "title": "Judy MacLeod", "graphic": "Conference Recap", "video": "Host and Judy or Video B-Roll", "prodNote": "", "length": "7:00", "sponsorship": "", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:15 AM", "title": "TEXAS LIVE VENUE - w/ B-ROLL & LIVE VIDEO", "graphic": "", "video": "", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:16 AM", "title": "", "graphic": "", "video": "CUSA Video Spotlight Feature We will need to record this", "prodNote": "", "length": "1:10", "sponsorship": "Player Bio Sponsor (3)", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:17 AM", "title": "Pitch to Delaware", "graphic": "Coming Up Next...", "video": "Delaware Highlights", "prodNote": "", "length": "0:20", "sponsorship": "", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "break_hdr", "time": "", "title": "BREAK 1", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "break_hdr", "time": "", "title": "LOCAL BREAK - CUSA", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:17 AM", "title": "DELAWARE PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:18 AM", "title": "CUSA PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:18 AM", "title": "SPONSOR SPOT", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "Sponsor Spot (4)", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:19 AM", "title": "SPONSOR SPOT", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "Sponsor Spot (5)", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:19 AM", "title": "SPONSOR SPOT", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "Sponsor Spot (6)", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "10:20 AM", "title": "SPONSOR SPOT", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "Sponsor Spot (7)", "url": "", "segment": "SEGMENT 1 - JUDY MACLEOD", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "seg_hdr", "time": "", "title": "SEGMENT 2 - DELAWARE", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:20 AM", "title": "Intro Delaware", "graphic": "Delaware top stat items", "video": "Delaware General Highlights", "prodNote": "", "length": "0:40", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:21 AM", "title": "Intro to Delaware Head Coach", "graphic": "Head Coach Name Font", "video": "Delaware Head Coach  on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:22 AM", "title": "Delaware Head Coach", "graphic": "Head Coach Record", "video": "Head Coach B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:24 AM", "title": "Delaware Head Coach", "graphic": "", "video": "Head Coach on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:25 AM", "title": "", "graphic": "Key Returners", "video": "Returning Players B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "Impact Player Sponsor (8)", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:26 AM", "title": "", "graphic": "Delaware Schedule", "video": "", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:27 AM", "title": "Intro to Delaware Player A", "graphic": "Player A Name Font", "video": "Delaware Player A on Camera", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:28 AM", "title": "Delaware Player A Highlights", "graphic": "Player A Stats", "video": "Delaware Player A Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:30 AM", "title": "Delaware Player A Highlights", "graphic": "", "video": "Delaware Player A on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:30 AM", "title": "Intro to Delaware Player B", "graphic": "Player B Name Font", "video": "Delaware Player B on Camera", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:31 AM", "title": "Delaware Player B Highlights", "graphic": "Player B Stats", "video": "Delaware Player B Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:33 AM", "title": "Delaware  Player B Highlights", "graphic": "", "video": "Delaware Player B on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:36 AM", "title": "Delaware Special Feature", "graphic": "", "video": "Delaware Linebacker Gavin Moul", "prodNote": "", "length": "2:30", "sponsorship": "Player Bio Sponsor (3)", "url": "https://www.facebook.com/share/v/18iZ1uPsw8/", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:36 AM", "title": "Pitch to FIU", "graphic": "Coming Up Next...", "video": "FIU Highlights", "prodNote": "", "length": "0:20", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:37 AM", "title": "FIU PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "break_hdr", "time": "", "title": "BREAK 2", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "content", "time": "10:40 AM", "title": "NATIONAL BREAK- ESPN", "graphic": "", "video": "", "prodNote": "", "length": "3:00", "sponsorship": "", "url": "", "segment": "SEGMENT 2 - DELAWARE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00539F", "segFg": "#FFD200"}, {"type": "seg_hdr", "time": "", "title": "SEGMENT 3 - FIU", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:40 AM", "title": "Intro FIU", "graphic": "FIU top stat items", "video": "FIU General Highlights", "prodNote": "", "length": "0:40", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:41 AM", "title": "Intro to FIU Head Coach", "graphic": "Head Coach Name Font", "video": "FIU Head Coach  on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:42 AM", "title": "FIU Head Coach", "graphic": "Head Coach Record", "video": "Head Coach B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:44 AM", "title": "FIU Head Coach", "graphic": "", "video": "Head Coach on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:45 AM", "title": "", "graphic": "Key Returners", "video": "Returning Players B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "Impact Player Sponsor (8)", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:46 AM", "title": "", "graphic": "FIU Schedule", "video": "", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:47 AM", "title": "Intro to FIU Player A", "graphic": "Player A Name Font", "video": "FIU Player A on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:48 AM", "title": "FIU Player A Highlights", "graphic": "Player A Stats", "video": "FIU Player A Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:50 AM", "title": "FIU Player A Highlights", "graphic": "", "video": "FIU Player A on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:51 AM", "title": "Intro to FIU Player B", "graphic": "Player B Name Font", "video": "FIU Player B on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:52 AM", "title": "FIU Player B Highlights", "graphic": "Player B Stats", "video": "FIU Player B Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:54 AM", "title": "FIU Player B Highlights", "graphic": "", "video": "FIU Player B on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:56 AM", "title": "FIU Special Feature", "graphic": "", "video": "FIU Spring Game Highlights", "prodNote": "", "length": "1:30", "sponsorship": "Player Bio Sponsor (3)", "url": "https://www.facebook.com/share/v/1FacHB28sn/", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:56 AM", "title": "Pitch to Liberty", "graphic": "Coming Up Next...", "video": "Liberty Highlights", "prodNote": "", "length": "0:20", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "10:57 AM", "title": "LIBERTY PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "break_hdr", "time": "", "title": "BREAK 3", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "content", "time": "11:00 AM", "title": "NATIONAL BREAK - ESPN", "graphic": "", "video": "", "prodNote": "", "length": "3:00", "sponsorship": "", "url": "", "segment": "SEGMENT 3 - FIU", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#091F3F", "segFg": "#C3993F"}, {"type": "seg_hdr", "time": "", "title": "SEGMENT 4 - LIBERTY", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:00 AM", "title": "Intro Liberty", "graphic": "Liberty top stat items", "video": "Liberty General Highlights", "prodNote": "", "length": "0:40", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:01 AM", "title": "Intro to Liberty Head Coach", "graphic": "Head Coach Name Font", "video": "Liberty Head Coach  on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:02 AM", "title": "Liberty Head Coach", "graphic": "Head Coach Record", "video": "Head Coach B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:04 AM", "title": "Liberty Head Coach", "graphic": "", "video": "Head Coach on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:05 AM", "title": "", "graphic": "Key Returners", "video": "Returning Players B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "Impact Player Sponsor (8)", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:06 AM", "title": "", "graphic": "Liberty Schedule", "video": "", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:07 AM", "title": "Intro to Liberty Player A", "graphic": "Player A Name Font", "video": "Liberty Player A on Camera", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:08 AM", "title": "Liberty Player A Highlights", "graphic": "Player A Stats", "video": "Liberty Player A Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:10 AM", "title": "Liberty Player A Highlights", "graphic": "", "video": "Liberty Player A on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:10 AM", "title": "Intro to Liberty Player B", "graphic": "Player B Name Font", "video": "Liberty Player B on Camera", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:11 AM", "title": "Liberty Player B Highlights", "graphic": "Player B Stats", "video": "Liberty Player B Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:13 AM", "title": "Liberty Player B Highlights", "graphic": "", "video": "Liberty Player B on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:15 AM", "title": "CUSA INSIDER LIVE PROMO", "graphic": "", "video": "", "prodNote": "", "length": "1:30", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:16 AM", "title": "Liberty Special Feature", "graphic": "", "video": "Alan York sits down with LB Deuce Spurlock", "prodNote": "", "length": "0:50", "sponsorship": "Player Bio Sponsor (3)", "url": "https://www.facebook.com/share/v/18d7Z6Mkdq/", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:16 AM", "title": "Pitch to Kennesaw St", "graphic": "Coming Up Next...", "video": "Kennesaw St Highlights", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:17 AM", "title": "KENNESAW STATE PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "break_hdr", "time": "", "title": "BREAK 4", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:20 AM", "title": "NATIONAL BREAK - ESPN", "graphic": "", "video": "", "prodNote": "", "length": "3:00", "sponsorship": "", "url": "", "segment": "SEGMENT 4 - LIBERTY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0A254E", "segFg": "#FFFFFF"}, {"type": "seg_hdr", "time": "", "title": "SEGMENT 5 - KENNESAW STATE", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:20 AM", "title": "Intro Kennesaw St", "graphic": "Kennesaw St top stat items", "video": "Kennesaw St General Highlights", "prodNote": "", "length": "0:40", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:21 AM", "title": "Intro to Kennesaw St Head Coach", "graphic": "Head Coach Name Font", "video": "Kennesaw St Head Coach  on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:22 AM", "title": "Kennesaw St Head Coach", "graphic": "Head Coach Record", "video": "Head Coach B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:24 AM", "title": "Kennesaw St Head Coach", "graphic": "", "video": "Head Coach on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:25 AM", "title": "", "graphic": "Key Returners", "video": "Returning Players B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "Impact Player Sponsor (8)", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:26 AM", "title": "", "graphic": "Kennesaw State Schedule", "video": "", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:27 AM", "title": "Intro to Kennesaw St Player A", "graphic": "Player A Name Font", "video": "Kennesaw St Player A on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:28 AM", "title": "Kennesaw St Player A Highlights", "graphic": "Player A Stats", "video": "Kennesaw St Player A Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:30 AM", "title": "Kennesaw St Player A Highlights", "graphic": "", "video": "Kennesaw St Player A on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:31 AM", "title": "Intro to Kennesaw St Player B", "graphic": "Player B Name Font", "video": "Kennesaw St Player B on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:32 AM", "title": "Kennesaw St Player B Highlights", "graphic": "Player B Stats", "video": "Kennesaw St Player B Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:34 AM", "title": "Kennesaw St Player B Highlights", "graphic": "", "video": "Kennesaw St Player B on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:36 AM", "title": "Kennesaw St Special Feature", "graphic": "", "video": "Kennesaw State Film Room Study", "prodNote": "", "length": "2:00", "sponsorship": "Player Bio Sponsor (3)", "url": "https://www.youtube.com/watch?v=R7V0CySm9UU", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:37 AM", "title": "Pitch to Jax State", "graphic": "Coming Up Next...", "video": "Jax State Highlights", "prodNote": "", "length": "0:20", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "break_hdr", "time": "", "title": "BREAK 5", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "break_hdr", "time": "", "title": "LOCAL BREAK - CUSA", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:37 AM", "title": "JACKSON STATE PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:38 AM", "title": "CUSA PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:38 AM", "title": "SPONSOR SPOT", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "Sponsor Spot (9)", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:39 AM", "title": "SPONSOR SPOT", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "Sponsor Spot (10)", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:39 AM", "title": "SPONSOR SPOT", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "Sponsor Spot (11)", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "content", "time": "11:40 AM", "title": "SPONSOR SPOT", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "Sponsor Spot (12)", "url": "", "segment": "SEGMENT 5 - KENNESAW STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#0B1315", "segFg": "#FDBB30"}, {"type": "seg_hdr", "time": "", "title": "SEGMENT 6 - JACKSONVILLE STATE", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:40 AM", "title": "Intro Jacksonville State", "graphic": "Jacksonville State top stat items", "video": "Jacksonville State General Highlights", "prodNote": "", "length": "0:40", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:41 AM", "title": "Intro to Jacksonville State Head Coach", "graphic": "Head Coach Name Font", "video": "Jacksonville State Head Coach  on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:42 AM", "title": "Jacksonville State Head Coach", "graphic": "Head Coach Record", "video": "Head Coach B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:44 AM", "title": "Jacksonville State Head Coach", "graphic": "", "video": "Head Coach on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:45 AM", "title": "", "graphic": "Key Returners", "video": "Returning Players B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "Impact Player Sponsor (8)", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:46 AM", "title": "", "graphic": "Jacksonville State Schedule", "video": "", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:47 AM", "title": "Intro to Jacksonville State Player A", "graphic": "Player A Name Font", "video": "Jacksonville State Player A on Camera", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:48 AM", "title": "Jacksonville State Player A Highlights", "graphic": "Player A Stats", "video": "Jacksonville State Player A Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:50 AM", "title": "Jacksonville State Player A Highlights", "graphic": "", "video": "Jacksonville State Player A on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:50 AM", "title": "Intro to Jacksonville State Player B", "graphic": "Player B Name Font", "video": "Jacksonville State Player B on Camera", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:51 AM", "title": "Jacksonville State Player B Highlights", "graphic": "Player B Stats", "video": "Jacksonville State Player B Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:53 AM", "title": "Jacksonville State Player B Highlights", "graphic": "", "video": "Jacksonville State Player B on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:54 AM", "title": "Jacksonville State Special Feature", "graphic": "", "video": "Jacksonville State Spring Game Hype", "prodNote": "", "length": "1:00", "sponsorship": "Player Bio Sponsor (3)", "url": "https://x.com/JaxStateFB/status/2045304967846588813?s=20", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:55 AM", "title": "Pitch to Middle Tennessee", "graphic": "Coming Up Next...", "video": "Middle Tennessee Highlights", "prodNote": "", "length": "0:20", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:55 AM", "title": "MIDDLE TENNESSEE PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "11:56 AM", "title": "CUSA PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "12:56 PM", "title": "CUSA PSA", "graphic": "", "video": "", "prodNote": "", "length": "60:30", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "12:57 PM", "title": "BILLBOARDS - 4 SPONSOR PODS", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "Billboards (13)", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "break_hdr", "time": "", "title": "BREAK 6", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:00 PM", "title": "NATIONAL BREAK - ESPN", "graphic": "", "video": "", "prodNote": "", "length": "3:00", "sponsorship": "", "url": "", "segment": "SEGMENT 6 - JACKSONVILLE STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#CC0000", "segFg": "#FFFFFF"}, {"type": "seg_hdr", "time": "", "title": "SEGMENT 7 - MIDDLE TENNESSEE", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:00 PM", "title": "Intro Middle Tennessee", "graphic": "Middle Tennessee top stat items", "video": "Middle Tennessee General Highlights", "prodNote": "", "length": "0:40", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:01 PM", "title": "Intro to Middle Tennessee Head Coach", "graphic": "Head Coach Name Font", "video": "Middle Tennessee Head Coach  on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:02 PM", "title": "Middle Tennessee Head Coach", "graphic": "Head Coach Record", "video": "Head Coach B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:04 PM", "title": "Middle Tennessee Head Coach", "graphic": "", "video": "Head Coach on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:05 PM", "title": "", "graphic": "Key Returners", "video": "Returning Players B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "Impact Player Sponsor (8)", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:06 PM", "title": "", "graphic": "Middle Tennessee Schedule", "video": "", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:07 PM", "title": "Intro to Middle Tennessee Player A", "graphic": "Player A Name Font", "video": "Middle Tennessee Player A on Camera", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:08 PM", "title": "Middle Tennessee Player A Highlights", "graphic": "Player A Stats", "video": "Middle Tennessee Player A Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:10 PM", "title": "Middle Tennessee Player A Highlights", "graphic": "", "video": "Middle Tennessee Player A on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:10 PM", "title": "Intro to Middle Tennessee Player B", "graphic": "Player B Name Font", "video": "Middle Tennessee Player B on Camera", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:11 PM", "title": "Middle Tennessee Player B Highlights", "graphic": "Player B Stats", "video": "Middle Tennessee Player B Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:13 PM", "title": "Middle Tennessee Player B Highlights", "graphic": "", "video": "Middle Tennessee Player B on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:15 PM", "title": "Middle Tennessee Special Feature", "graphic": "", "video": "Middle Tennessee  Spring Ball BTS", "prodNote": "", "length": "1:30", "sponsorship": "Player Bio Sponsor (3)", "url": "https://www.facebook.com/share/v/1AwJbjRNuL/", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:16 PM", "title": "CUSA INSIDER LIVE PROMO", "graphic": "", "video": "", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:16 PM", "title": "Pitch to Western Kentucky", "graphic": "Coming Up Next...", "video": "Western Kentucky Highlights", "prodNote": "", "length": "0:20", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:17 PM", "title": "WESTERN KENTUCKY PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "break_hdr", "time": "", "title": "BREAK 7", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:20 PM", "title": "NATIONAL BREAK - ESPN", "graphic": "", "video": "", "prodNote": "", "length": "3:00", "sponsorship": "", "url": "", "segment": "SEGMENT 7 - MIDDLE TENNESSEE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#036EB7", "segFg": "#FFFFFF"}, {"type": "seg_hdr", "time": "", "title": "SEGMENT 8 - WESTERN KENTUCKY", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:20 PM", "title": "Intro Western Kentucky", "graphic": "Western Kentucky top stat items", "video": "Western Kentucky General Highlights", "prodNote": "", "length": "0:40", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:21 PM", "title": "Intro to Western Kentucky Head Coach", "graphic": "Head Coach Name Font", "video": "Western Kentucky Head Coach  on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:22 PM", "title": "Western Kentucky Head Coach", "graphic": "Head Coach Record", "video": "Head Coach B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:24 PM", "title": "Western Kentucky Head Coach", "graphic": "", "video": "Head Coach on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:25 PM", "title": "", "graphic": "Key Returners", "video": "Returning Players B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "Impact Player Sponsor (8)", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:26 PM", "title": "", "graphic": "Western Kentucky Schedule", "video": "", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:27 PM", "title": "Intro to Western Kentucky Player A", "graphic": "Player A Name Font", "video": "Western Kentucky Player A on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:28 PM", "title": "Western Kentucky Player A Highlights", "graphic": "Player A Stats", "video": "Western Kentucky Player A Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:30 PM", "title": "Western KentuckyPlayer A Highlights", "graphic": "", "video": "Western Kentucky Player A on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:31 PM", "title": "Intro to Western Kentucky Player B", "graphic": "Player B Name Font", "video": "Western Kentucky Player B on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:32 PM", "title": "Western Kentucky Player B Highlights", "graphic": "Player B Stats", "video": "Western Kentucky Player B Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:34 PM", "title": "Western Kentucky Player B Highlights", "graphic": "", "video": "Western Kentucky Player B on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:36 PM", "title": "Western Kentucky Special Feature", "graphic": "", "video": "Western Kentucky New Orleans Bowl Highlights", "prodNote": "", "length": "1:30", "sponsorship": "Player Bio Sponsor (3)", "url": "https://x.com/WKUFootball/status/2005001729331388773?s=20", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:36 PM", "title": "Pitch to New Mexico State", "graphic": "Coming Up Next...", "video": "New Mexico State Highlights", "prodNote": "", "length": "0:20", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:37 PM", "title": "NEW MEXICO STATE PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "break_hdr", "time": "", "title": "BREAK 8", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:40 PM", "title": "NATIONAL BREAK - ESPN", "graphic": "", "video": "", "prodNote": "", "length": "3:00", "sponsorship": "", "url": "", "segment": "SEGMENT 8 - WESTERN KENTUCKY", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#E13A3E", "segFg": "#FFFFFF"}, {"type": "seg_hdr", "time": "", "title": "SEGMENT 9 - NEW MEXICO STATE", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:40 PM", "title": "Intro New Mexico State", "graphic": "New Mexico State top stat items", "video": "New Mexico State General Highlights", "prodNote": "", "length": "0:40", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:41 PM", "title": "Intro to New Mexico State Head Coach", "graphic": "Head Coach Name Font", "video": "New Mexico State Head Coach  on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:42 PM", "title": "New Mexico State Head Coach", "graphic": "Head Coach Record", "video": "Head Coach B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:44 PM", "title": "New Mexico State Head Coach", "graphic": "", "video": "Head Coach on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:45 PM", "title": "", "graphic": "Key Returners", "video": "Returning Players B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "Impact Player Sponsor (8)", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:46 PM", "title": "", "graphic": "New Mexico State Schedule", "video": "", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:47 PM", "title": "Intro to New Mexico State Player A", "graphic": "Player A Name Font", "video": "New Mexico State Player A on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:48 PM", "title": "New Mexico State Player A Highlights", "graphic": "Player A Stats", "video": "New Mexico State Player A Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:50 PM", "title": "New Mexico State Player A Highlights", "graphic": "", "video": "New Mexico State Player A on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:51 PM", "title": "Intro to New Mexico State Player B", "graphic": "Player B Name Font", "video": "New Mexico State Player B on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:52 PM", "title": "New Mexico State Player B Highlights", "graphic": "Player B Stats", "video": "New Mexico State Player B Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:54 PM", "title": "New Mexico State Player B Highlights", "graphic": "", "video": "New Mexico State Player B on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:56 PM", "title": "New Mexico State Special Feature", "graphic": "", "video": "New Mexico State", "prodNote": "", "length": "2:00", "sponsorship": "Player Bio Sponsor (3)", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:57 PM", "title": "Pitch to Missouri State", "graphic": "Coming Up Next...", "video": "Missouri State Highlights", "prodNote": "", "length": "0:20", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "break_hdr", "time": "", "title": "BREAK 9", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "break_hdr", "time": "", "title": "LOCAL BREAK - CUSA", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:57 PM", "title": "MISSOURI STATE PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:58 PM", "title": "CUSA PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:58 PM", "title": "SPONSOR SPOT", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "Sponsor Spot (14)", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:59 PM", "title": "SPONSOR SPOT", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "Sponsor Spot (15)", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "1:59 PM", "title": "SPONSOR SPOT", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "Sponsor Spot (16)", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:00 PM", "title": "SPONSOR SPOT", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "Sponsor Spot (17)", "url": "", "segment": "SEGMENT 9 - NEW MEXICO STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#7E141B", "segFg": "#FFFFFF"}, {"type": "seg_hdr", "time": "", "title": "SEGMENT 10 - MISSOURI STATE", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:00 PM", "title": "Intro Missouri State", "graphic": "Missouri State top stat items", "video": "Missouri State General Highlights", "prodNote": "", "length": "0:40", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:01 PM", "title": "Intro to Missouri State Head Coach", "graphic": "Head Coach Name Font", "video": "Missouri State Head Coach  on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:02 PM", "title": "Missouri State Head Coach", "graphic": "Head Coach Record", "video": "Head Coach B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:04 PM", "title": "Missouri State Head Coach", "graphic": "", "video": "Head Coach on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:05 PM", "title": "", "graphic": "Key Returners", "video": "Returning Players B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "Impact Player Sponsor (8)", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:06 PM", "title": "", "graphic": "Missouri State Schedule", "video": "", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:07 PM", "title": "Intro to Missouri State Player A", "graphic": "Player A Name Font", "video": "Missouri State Player A on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:08 PM", "title": "Missouri State Player A Highlights", "graphic": "Player A Stats", "video": "Missouri State Player A Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:10 PM", "title": "Missouri State Player A Highlights", "graphic": "", "video": "Missouri State Player A on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:11 PM", "title": "Intro to Missouri State Player B", "graphic": "Player B Name Font", "video": "Missouri State Player B on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:12 PM", "title": "Missouri State Player B Highlights", "graphic": "Player B Stats", "video": "Missouri State Player B Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:14 PM", "title": "Missouri State Player B Highlights", "graphic": "", "video": "Missouri State Player B on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:16 PM", "title": "Missouri State Special Feature", "graphic": "", "video": "Missouri State", "prodNote": "", "length": "1:30", "sponsorship": "Player Bio Sponsor (3)", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:16 PM", "title": "Pitch to Sam Houston", "graphic": "Coming Up Next...", "video": "Sam Houston Highlights", "prodNote": "", "length": "0:20", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:17 PM", "title": "SAM HOUSTON PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "break_hdr", "time": "", "title": "BREAK 10", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:20 PM", "title": "NATIONAL BREAK - ESPN", "graphic": "", "video": "", "prodNote": "", "length": "3:00", "sponsorship": "", "url": "", "segment": "SEGMENT 10 - MISSOURI STATE", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "seg_hdr", "time": "", "title": "SEGMENT 11 - SAM HOUSTON", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:20 PM", "title": "Intro Sam Houston", "graphic": "Sam Houston top stat items", "video": "Sam Houston General Highlights", "prodNote": "", "length": "0:40", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:21 PM", "title": "Intro to Sam Houston Head Coach", "graphic": "Head Coach Name Font", "video": "Sam Houston Head Coach  on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:22 PM", "title": "Sam Houston Head Coach", "graphic": "Head Coach Record", "video": "Head Coach B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:24 PM", "title": "Sam Houston Head Coach", "graphic": "", "video": "Head Coach on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:25 PM", "title": "", "graphic": "Key Returners", "video": "Returning Players B-Roll", "prodNote": "", "length": "1:00", "sponsorship": "Impact Player Sponsor (8)", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:26 PM", "title": "", "graphic": "Missouri State Schedule", "video": "", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:27 PM", "title": "Intro to Sam Houston Player A", "graphic": "Player A Name Font", "video": "Sam Houston Player A on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:28 PM", "title": "Sam Houston Player A Highlights", "graphic": "Player A Stats", "video": "Sam Houston Player A Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:30 PM", "title": "Sam Houston Player A Highlights", "graphic": "", "video": "Sam Houston Player A on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:31 PM", "title": "Intro to Sam Houston Player B", "graphic": "Player B Name Font", "video": "Sam Houston Player B on Camera", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:32 PM", "title": "Sam Houston Player B Highlights", "graphic": "Player B Stats", "video": "Sam Houston Player B Highlights", "prodNote": "", "length": "1:00", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:34 PM", "title": "Sam Houston Player B Highlights", "graphic": "", "video": "Sam Houston Player B on Camera", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:36 PM", "title": "Sam Houston Special Feature", "graphic": "", "video": "Sam Houston", "prodNote": "", "length": "1:30", "sponsorship": "Player Bio Sponsor (3)", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:36 PM", "title": "Pitch to CUSA Recap", "graphic": "Coming Up Next...", "video": "CUSA General Highlights", "prodNote": "", "length": "0:20", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:37 PM", "title": "CUSA PODCAST PSA", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "break_hdr", "time": "", "title": "BREAK 11", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:40 PM", "title": "NATIONAL BREAK - ESPN", "graphic": "", "video": "", "prodNote": "", "length": "3:00", "sponsorship": "", "url": "", "segment": "SEGMENT 11 - SAM HOUSTON", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "seg_hdr", "time": "", "title": "SEGMENT 12 - SHOW RECAP", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:42 PM", "title": "Preseason Rankings", "graphic": "CUSA Preseason Rankings", "video": "Full Screen Graphic", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "2:44 PM", "title": "Key Games to Watch", "graphic": "CUSA Schedule", "video": "Highlights of Featured Teams", "prodNote": "", "length": "2:00", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "3:46 PM", "title": "Where to Watch", "graphic": "Broadcast Partners", "video": "General Highlights", "prodNote": "", "length": "62:00", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "3:46 PM", "title": "Goodnight", "graphic": "", "video": "", "prodNote": "", "length": "0:30", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "break_hdr", "time": "", "title": "BREAK 12", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "3:49 PM", "title": "NATIONAL BREAK - ESPN", "graphic": "", "video": "", "prodNote": "", "length": "3:00", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "3:49 PM", "title": "", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "3:49 PM", "title": "", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "3:49 PM", "title": "", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "3:49 PM", "title": "", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "3:49 PM", "title": "", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "3:49 PM", "title": "", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"type": "content", "time": "3:49 PM", "title": "", "graphic": "", "video": "", "prodNote": "", "length": "", "sponsorship": "", "url": "", "segment": "SEGMENT 12 - SHOW RECAP", "sponsorName": "", "boxLink": "", "imageData": "", "notes": "", "segBg": "#00263A", "segFg": "#FFFFFF"}];
+const SPONSORS = [{"num": 1, "label": "Title Sponsor (1)", "segment": "Show Open", "rowContext": "Intro", "type": "Title Sponsor", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 2, "label": "Conference Standings Sponsor (2)", "segment": "Show Open", "rowContext": "Judy MacLeod", "type": "Standings Sponsor", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 3, "label": "Player Bio Sponsor (3)", "segment": "Show Open", "rowContext": "", "type": "Player Bio Sponsor", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 4, "label": "Sponsor Spot (4)", "segment": "Show Open", "rowContext": "SPONSOR SPOT", "type": "Paid Spot", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 5, "label": "Sponsor Spot (5)", "segment": "Show Open", "rowContext": "SPONSOR SPOT", "type": "Paid Spot", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 6, "label": "Sponsor Spot (6)", "segment": "Show Open", "rowContext": "SPONSOR SPOT", "type": "Paid Spot", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 7, "label": "Sponsor Spot (7)", "segment": "Show Open", "rowContext": "SPONSOR SPOT", "type": "Paid Spot", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 8, "label": "Impact Player Sponsor (8)", "segment": "Show Open", "rowContext": "", "type": "Impact Player Sponsor", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 9, "label": "Sponsor Spot (9)", "segment": "Show Open", "rowContext": "SPONSOR SPOT", "type": "Paid Spot", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 10, "label": "Sponsor Spot (10)", "segment": "Show Open", "rowContext": "SPONSOR SPOT", "type": "Paid Spot", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 11, "label": "Sponsor Spot (11)", "segment": "Show Open", "rowContext": "SPONSOR SPOT", "type": "Paid Spot", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 12, "label": "Sponsor Spot (12)", "segment": "Show Open", "rowContext": "SPONSOR SPOT", "type": "Paid Spot", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 13, "label": "Billboards (13)", "segment": "Show Open", "rowContext": "BILLBOARDS - 4 SPONSOR PODS", "type": "Billboard Package", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 14, "label": "Sponsor Spot (14)", "segment": "Show Open", "rowContext": "SPONSOR SPOT", "type": "Paid Spot", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 15, "label": "Sponsor Spot (15)", "segment": "Show Open", "rowContext": "SPONSOR SPOT", "type": "Paid Spot", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 16, "label": "Sponsor Spot (16)", "segment": "Show Open", "rowContext": "SPONSOR SPOT", "type": "Paid Spot", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}, {"num": 17, "label": "Sponsor Spot (17)", "segment": "Show Open", "rowContext": "SPONSOR SPOT", "type": "Paid Spot", "sponsorName": "", "location": "Show Open", "imageData": "", "boxLink": "", "notes": "", "status": "Pending", "segBg": "#00263A", "segFg": "#FFFFFF"}];
+const SC       = {"SEGMENT 1": {"bg": "#00263A", "fg": "#FFFFFF", "name": "Show Open"}, "SEGMENT 2": {"bg": "#00539F", "fg": "#FFD200", "name": "Delaware"}, "SEGMENT 3": {"bg": "#091F3F", "fg": "#C3993F", "name": "FIU"}, "SEGMENT 4": {"bg": "#0A254E", "fg": "#FFFFFF", "name": "Liberty"}, "SEGMENT 5": {"bg": "#0B1315", "fg": "#FDBB30", "name": "Kennesaw State"}, "SEGMENT 6": {"bg": "#CC0000", "fg": "#FFFFFF", "name": "Jacksonville State"}, "SEGMENT 7": {"bg": "#036EB7", "fg": "#FFFFFF", "name": "Middle Tennessee"}, "SEGMENT 8": {"bg": "#E13A3E", "fg": "#FFFFFF", "name": "Western Kentucky"}, "SEGMENT 9": {"bg": "#7E141B", "fg": "#FFFFFF", "name": "New Mexico State"}, "SEGMENT 10": {"bg": "#5E0009", "fg": "#FFFFFF", "name": "Missouri State"}, "SEGMENT 11": {"bg": "#F56423", "fg": "#FFFFFF", "name": "Sam Houston"}, "SEGMENT 12": {"bg": "#00263A", "fg": "#BFCED6", "name": "Show Recap"}};
+const RUNTIME  = "5:49:30";
+
+let rows     = JSON.parse(JSON.stringify(ROWS));
+let sponsors = JSON.parse(JSON.stringify(SPONSORS));
+let curUploadRow  = null;
+let curUploadCard = null;
+
+// ── STORAGE ──────────────────────────────────────────────────────────────────
+function loadFromStorage() {
+  try {
+    const s = localStorage.getItem('cusa_rundown_2026_v3');
+    if (!s) return;
+    const d = JSON.parse(s);
+    if (d.rows) d.rows.forEach((sr,i) => {
+      if (!rows[i]) return;
+      ['sponsorName','boxLink','url','notes','imageData','time','length'].forEach(k => {
+        if (sr[k] !== undefined) rows[i][k] = sr[k];
+      });
+    });
+    if (d.sponsors) d.sponsors.forEach((ss,i) => {
+      if (!sponsors[i]) return;
+      ['sponsorName','location','imageData','boxLink','notes','status'].forEach(k => {
+        if (ss[k] !== undefined) sponsors[i][k] = ss[k];
+      });
+    });
+    if (d.lastMod) document.getElementById('lastMod').textContent = d.lastMod;
+  } catch(e) { console.warn('Load error',e); }
+}
+
+function saveAll() {
+  const now = new Date().toLocaleString('en-US',{
+    month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true
+  });
+  document.getElementById('lastMod').textContent = now;
+  try {
+    localStorage.setItem('cusa_rundown_2026_v3', JSON.stringify({
+      rows: rows.map(r=>({'sponsorName':r.sponsorName,'boxLink':r.boxLink,'url':r.url,'notes':r.notes,'imageData':r.imageData,'time':r.time,'length':r.length})),
+      sponsors: sponsors.map(s=>({'sponsorName':s.sponsorName,'location':s.location,'imageData':s.imageData,'boxLink':s.boxLink,'notes':s.notes,'status':s.status})),
+      lastMod: now
+    }));
+    const el = document.getElementById('saveStatus');
+    el.style.opacity='1'; setTimeout(()=>el.style.opacity='0',2000);
+    updateStats();
+  } catch(e) { alert('Save failed: '+e.message); }
+}
+
+// ── STATS ────────────────────────────────────────────────────────────────────
+function updateStats() {
+  const content = rows.filter(r=>r.type==='content');
+  document.getElementById('st-total').textContent = content.length;
+  document.getElementById('st-gfx').textContent   = content.filter(r=>r.graphic).length;
+  document.getElementById('st-vid').textContent   = content.filter(r=>r.url).length;
+  const conf = sponsors.filter(s=>s.status==='Confirmed').length;
+  document.getElementById('st-conf').textContent  = conf+'/'+sponsors.length;
+  document.getElementById('ds-conf').textContent  = conf;
+  document.getElementById('ds-pend').textContent  = sponsors.filter(s=>s.status==='Pending').length;
+  document.getElementById('ds-tbd').textContent   = sponsors.filter(s=>s.status==='TBD').length;
+  document.getElementById('ds-canc').textContent  = sponsors.filter(s=>s.status==='Cancelled').length;
+  recalcRuntime();
+}
+
+// ── RUNTIME CALCULATION ──────────────────────────────────────────────────────
+function parseLen(s) {
+  // Accepts "m:ss" or "h:mm:ss" — returns total seconds
+  if (!s || !s.trim()) return 0;
+  const parts = s.trim().split(':').map(Number);
+  if (parts.some(isNaN)) return 0;
+  if (parts.length === 2) return parts[0]*60 + parts[1];
+  if (parts.length === 3) return parts[0]*3600 + parts[1]*60 + parts[2];
+  return 0;
+}
+
+function fmtRuntime(totalSecs) {
+  if (totalSecs <= 0) return '0:00:00';
+  const h = Math.floor(totalSecs / 3600);
+  const m = Math.floor((totalSecs % 3600) / 60);
+  const s = totalSecs % 60;
+  return h + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+}
+
+function recalcRuntime() {
+  const total = rows
+    .filter(r => r.type === 'content')
+    .reduce((acc, r) => acc + parseLen(r.length), 0);
+  const formatted = fmtRuntime(total);
+  ['totalRunTime','statusRunTime','dashRunTime'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = formatted;
+  });
+  return formatted;
+}
+
+// ── TABS ──────────────────────────────────────────────────────────────────────
+function openTab(id) {
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('btn-'+id).classList.add('active');
+}
+
+// ── SEGMENT FILTER ────────────────────────────────────────────────────────────
+function populateSegFilter() {
+  const sel = document.getElementById('filterSeg');
+  // Clear all but the first "All" option
+  while (sel.options.length > 1) sel.remove(1);
+  const segs = [...new Set(
+    rows.filter(r => r.type === 'seg_hdr').map(r => r.title)
+  )];
+  segs.forEach(s => {
+    const o = document.createElement('option');
+    o.value = s; o.textContent = s;
+    sel.appendChild(o);
+  });
+}
+
+// ── GET SEGMENT COLORS ────────────────────────────────────────────────────────
+function getSegColors(segTitle) {
+  if (!segTitle) return {bg:'#00263A',fg:'#FFFFFF'};
+  const su = segTitle.toUpperCase();
+  for (const [key,val] of Object.entries(SC)) {
+    if (su.includes(key)) return val;
+  }
+  return {bg:'#00263A',fg:'#FFFFFF'};
+}
+
+// ── RENDER RUNDOWN ────────────────────────────────────────────────────────────
+function isBreak(title) { return /BREAK|PSA|SPONSOR SPOT|NATIONAL|LOCAL/i.test(title||''); }
+
+function renderRundown() {
+  const tbody = document.getElementById('rundownBody');
+  const fSeg   = document.getElementById('filterSeg').value;
+  const fType  = document.getElementById('filterType').value;
+  const search = document.getElementById('searchBox').value.toLowerCase();
+  tbody.innerHTML = '';
+  let lineNum=0, curSeg='', shown=0;
+
+  rows.forEach((row, idx) => {
+
+    // ── SEGMENT HEADER ──────────────────────────────────────────────────────
+    if (row.type === 'seg_hdr') {
+      curSeg = row.title;
+      if (fSeg && fSeg !== curSeg) return;
+      const sc = getSegColors(curSeg);
+      const tr = document.createElement('tr');
+      tr.className = 'seg-hdr';
+      tr.innerHTML = `<td colspan="14" style="background:${sc.bg};color:${sc.fg}">◼ ${row.title}</td>`;
+      tbody.appendChild(tr);
+      return;
+    }
+
+    // ── BREAK HEADER ────────────────────────────────────────────────────────
+    if (row.type === 'break_hdr') {
+      if (fSeg && fSeg !== curSeg) return;
+      if (['graphic','video','sponsor','url'].includes(fType)) return;
+      const tr = document.createElement('tr');
+      tr.className = 'break-hdr';
+      tr.innerHTML = `<td colspan="14">▐ ${row.title}</td>`;
+      tbody.appendChild(tr);
+      return;
+    }
+
+    // ── FILTERS ─────────────────────────────────────────────────────────────
+    if (fSeg   && curSeg !== fSeg)      return;
+    if (fType === 'graphic' && !row.graphic)     return;
+    if (fType === 'video'   && !row.video)       return;
+    if (fType === 'sponsor' && !row.sponsorship) return;
+    if (fType === 'url'     && !row.url)         return;
+    if (fType === 'break'   && !isBreak(row.title)) return;
+    if (search) {
+      const hay = [row.title, row.graphic, row.video, row.prodNote,
+                   row.sponsorship, row.sponsorName, row.notes].join(' ').toLowerCase();
+      if (!hay.includes(search)) return;
+    }
+
+    lineNum++; shown++;
+    const isBk   = isBreak(row.title);
+    const hasSp  = !!row.sponsorship;
+    const isSpec = /special|feature/i.test(row.title || '');
+    const isPH   = isSpec && row.url;
+    const sc     = getSegColors(curSeg);
+    const segNow = curSeg;   // capture for closures
+
+    const tr = document.createElement('tr');
+    tr.className = 'content-row' + (hasSp ? ' has-sponsor' : '') + (isBk ? ' is-break-row' : '');
+    if (row._new) { tr.classList.add('new-row'); delete row._new; }
+
+    // Helper: create a plain <td>
+    function mkTd(cls) {
+      const t = document.createElement('td');
+      if (cls) t.className = cls;
+      return t;
+    }
+
+    // Helper: contenteditable div bound to row[field]
+    // parentCell passed in so we can update its class on input
+    function mkEdit(field, parentCell, placeholder) {
+      const d = document.createElement('div');
+      d.contentEditable = 'true';
+      d.className = 'inline-edit';
+      d.textContent = row[field] || '';
+      if (!row[field] && placeholder) {
+        d.style.opacity = '0.35';
+        d.setAttribute('data-ph', placeholder);
+      }
+      d.addEventListener('focus', () => { d.style.opacity = '1'; });
+      d.addEventListener('blur',  () => {
+        d.style.opacity = (d.textContent.trim() ? '1' : '0.35');
+      });
+      d.addEventListener('input', () => {
+        row[field] = d.textContent;
+        // Update parent cell highlight for graphic / video columns
+        if (field === 'graphic') {
+          parentCell.className = d.textContent.trim() ? 'cell-gfx' : '';
+        }
+        if (field === 'video') {
+          parentCell.className = d.textContent.trim() ? 'cell-vid' : '';
+        }
+      });
+      return d;
+    }
+
+    // ── Col 1 : Row # ───────────────────────────────────────────────────────
+    const numTd = mkTd('row-num');
+    numTd.textContent = lineNum;
+    tr.appendChild(numTd);
+
+    // ── Col 2 : Time CT ─────────────────────────────────────────────────────
+    const timeTd = mkTd('time-cell');
+    const timeIn = document.createElement('input');
+    timeIn.type = 'text'; timeIn.className = 'time-in';
+    timeIn.value = row.time || ''; timeIn.placeholder = 'HH:MM AM';
+    timeIn.addEventListener('change', () => { rows[idx].time = timeIn.value; recalcRuntime(); });
+    timeTd.appendChild(timeIn);
+    tr.appendChild(timeTd);
+
+    // ── Col 3 : Title ───────────────────────────────────────────────────────
+    const titleTd = mkTd();
+    if (isPH) {
+      const badge = document.createElement('div');
+      badge.className = 'ph-badge'; badge.textContent = 'PLACEHOLDER';
+      titleTd.appendChild(badge);
+    }
+    const titleEdit = mkEdit('title', titleTd, 'Row title…');
+    if (isSpec) titleEdit.style.fontWeight = '700';
+    titleTd.appendChild(titleEdit);
+    tr.appendChild(titleTd);
+
+    // ── Col 4 : Graphic ─────────────────────────────────────────────────────
+    const gfxTd = mkTd(row.graphic ? 'cell-gfx' : '');
+    gfxTd.appendChild(mkEdit('graphic', gfxTd, 'Graphic cue…'));
+    tr.appendChild(gfxTd);
+
+    // ── Col 5 : Video ───────────────────────────────────────────────────────
+    const vidTd = mkTd(row.video ? 'cell-vid' : '');
+    vidTd.appendChild(mkEdit('video', vidTd, 'Video description…'));
+    tr.appendChild(vidTd);
+
+    // ── Col 6 : Prod Notes ──────────────────────────────────────────────────
+    const pnTd = mkTd();
+    pnTd.appendChild(mkEdit('prodNote', pnTd, 'Notes…'));
+    tr.appendChild(pnTd);
+
+    // ── Col 7 : Length ──────────────────────────────────────────────────────
+    const lenTd = mkTd('len-cell');
+    const lenIn = document.createElement('input');
+    lenIn.type = 'text'; lenIn.className = 'len-in';
+    lenIn.value = row.length || ''; lenIn.placeholder = 'm:ss';
+    lenIn.addEventListener('change', () => { rows[idx].length = lenIn.value; recalcRuntime(); });
+    lenTd.appendChild(lenIn);
+    tr.appendChild(lenTd);
+
+    // ── Col 8 : Sponsorship ─────────────────────────────────────────────────
+    const spTd = mkTd(hasSp ? 'cell-spon' : '');
+    if (!hasSp) spTd.style.color = '#ddd';
+    spTd.appendChild(mkEdit('sponsorship', spTd, 'Slot tag…'));
+    tr.appendChild(spTd);
+
+    // ── Col 9 : Sponsor Name ────────────────────────────────────────────────
+    const spnTd = mkTd(hasSp ? 'editable-cell' : '');
+    const spnDiv = document.createElement('div');
+    spnDiv.contentEditable = 'true'; spnDiv.className = 'editable';
+    spnDiv.textContent = row.sponsorName || '';
+    spnDiv.addEventListener('input', () => { rows[idx].sponsorName = spnDiv.textContent; });
+    spnTd.appendChild(spnDiv);
+    tr.appendChild(spnTd);
+
+    // ── Col 10 : Box Link ───────────────────────────────────────────────────
+    const bxTd = mkTd();
+    const bxIn = document.createElement('input');
+    bxIn.type = 'text'; bxIn.className = 'box-in';
+    bxIn.placeholder = 'Box.com link…'; bxIn.value = row.boxLink || '';
+    bxIn.addEventListener('input', () => { rows[idx].boxLink = bxIn.value; });
+    bxTd.appendChild(bxIn);
+    if (row.boxLink) {
+      const a = document.createElement('a'); a.href = row.boxLink; a.target = '_blank';
+      a.textContent = '↗ Open';
+      a.style.cssText = 'font-size:13px;color:var(--blue);display:block';
+      bxTd.appendChild(a);
+    }
+    tr.appendChild(bxTd);
+
+    // ── Col 11 : Video URL ──────────────────────────────────────────────────
+    const urlTd = mkTd();
+    const urlIn = document.createElement('input');
+    urlIn.type = 'text'; urlIn.className = 'url-in';
+    urlIn.placeholder = isPH ? 'Placeholder – update link…' : '';
+    urlIn.value = row.url || '';
+    urlIn.addEventListener('input', () => { rows[idx].url = urlIn.value; });
+    urlTd.appendChild(urlIn);
+    if (row.url) {
+      const a = document.createElement('a'); a.href = row.url; a.target = '_blank';
+      a.textContent = '↗ Watch';
+      a.style.cssText = 'font-size:13px;color:var(--espn-red);display:block';
+      urlTd.appendChild(a);
+    }
+    tr.appendChild(urlTd);
+
+    // ── Col 12 : Image ──────────────────────────────────────────────────────
+    const imgTd = mkTd('img-area');
+    if (row.imageData) {
+      const im = document.createElement('img');
+      im.src = row.imageData; im.className = 'img-thumb';
+      imgTd.appendChild(im);
+    }
+    if (hasSp) {
+      const ub = document.createElement('button'); ub.className = 'up-btn';
+      ub.textContent = row.imageData ? '↺' : '📎';
+      ub.onclick = () => { curUploadRow = idx; document.getElementById('fileInput').click(); };
+      imgTd.appendChild(ub);
+    }
+    tr.appendChild(imgTd);
+
+    // ── Col 13 : Notes ──────────────────────────────────────────────────────
+    const nTd = mkTd('editable-cell');
+    const nDiv = document.createElement('div');
+    nDiv.contentEditable = 'true'; nDiv.className = 'editable';
+    nDiv.textContent = row.notes || '';
+    nDiv.addEventListener('input', () => { rows[idx].notes = nDiv.textContent; });
+    nTd.appendChild(nDiv);
+    tr.appendChild(nTd);
+
+    // ── Col 14 : + and × buttons ────────────────────────────────────────────
+    const actTd = mkTd('row-action-td');
+
+    const insBtn = document.createElement('button');
+    insBtn.className = 'ins-row-btn';
+    insBtn.title = 'Insert blank row below';
+    insBtn.textContent = '+';
+    insBtn.onclick = () => insertRowBelow(idx, segNow);
+    actTd.appendChild(insBtn);
+
+    const delBtn = document.createElement('button');
+    delBtn.className = 'del-row-btn';
+    delBtn.title = 'Delete this row';
+    delBtn.textContent = '×';
+    delBtn.onclick = () => deleteRundownRow(idx, row);
+    actTd.appendChild(delBtn);
+
+    tr.appendChild(actTd);
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('filterCount').textContent = shown ? shown + ' rows' : '';
+}
+
+function applyFilters(){ renderRundown(); }
+function clearFilters(){
+  document.getElementById('filterSeg').value='';
+  document.getElementById('filterType').value='';
+  document.getElementById('searchBox').value='';
+  renderRundown();
+}
+
+// ── FILE UPLOAD ───────────────────────────────────────────────────────────────
+document.getElementById('fileInput').addEventListener('change',function(e){
+  const file=e.target.files[0]; if(!file||curUploadRow===null) return;
+  const r=new FileReader(); r.onload=ev=>{ rows[curUploadRow].imageData=ev.target.result; renderRundown(); e.target.value=''; }; r.readAsDataURL(file);
+});
+document.getElementById('fileInputCard').addEventListener('change',function(e){
+  const file=e.target.files[0]; if(!file||curUploadCard===null) return;
+  const r=new FileReader(); r.onload=ev=>{ sponsors[curUploadCard].imageData=ev.target.result; renderDashboard(); e.target.value=''; }; r.readAsDataURL(file);
+});
+
+// ── RENDER DASHBOARD ─────────────────────────────────────────────────────────
+function triggerCardUpload(i) {
+  curUploadCard = i;
+  document.getElementById('fileInputCard').click();
+}
+
+function renderDashboard() {
+  const grid=document.getElementById('dashGrid'); grid.innerHTML='';
+
+  // Add Slot button at top
+  const addBtn=document.createElement('button');
+  addBtn.className='add-slot-btn';
+  addBtn.textContent='＋ Add Sponsor Slot';
+  addBtn.onclick=openAddSlotModal;
+  grid.appendChild(addBtn);
+
+  sponsors.forEach((sp,idx)=>{
+    const sc=getSegColors(sp.segment);
+    const occs=sp.occurrences||[];
+    const isSpot=(sp.type==='Paid Spot');
+    const breaks=sp.breakAssignments||[];
+
+    // Occurrence list (string concat — no nested template literals)
+    let occHtml='';
+    if(occs.length>1){
+      occHtml='<div class="occ-list">'+occs.map((o,i)=>'<span class="occ-item">'+(i+1)+'. '+o.segment+(o.context?' \u2014 '+o.context:'')+'</span>').join('')+'</div>';
+    } else if(occs.length===1){
+      occHtml='<div class="loc-info"><strong>Location:</strong> '+occs[0].segment+(occs[0].context?' \u00b7 '+occs[0].context:'')+'</div>';
+    }
+
+    // Break assignment chips (Paid Spots only)
+    const allBreaks=['Break 1','Break 2','Break 3','Break 4','Break 5','Break 6','Break 7','Break 8','Break 9','Break 10','Break 11','Break 12'];
+    let breakHtml='';
+    if(isSpot){
+      breakHtml='<div class="field-group"><div class="field-label">Break Schedule (select all breaks this spot airs in)</div>'
+        +'<div class="break-assignments" id="ba-'+idx+'">'
+        +allBreaks.map(b=>'<div class="break-chip'+(breaks.includes(b)?' active':'')+'" onclick="toggleBreak('+idx+',\''+b+'\',this)">'+b+'</div>').join('')
+        +'</div></div>';
+    }
+
+    // Logo section
+    let logoHtml;
+    if(isSpot){
+      logoHtml='<div class="field-group"><div class="video-asset-note">&#128249; This placement is a video spot &#8212; no logo upload needed. Use the Box Link field above to attach the video creative.</div></div>';
+    } else {
+      const imgContent=sp.imageData
+        ? '<img src="'+sp.imageData+'" alt="logo">'
+        : '<div class="card-img-ph"><span>&#128206;</span>Click to upload</div>';
+      logoHtml='<div class="field-group"><div class="field-label">Sponsor Logo</div>'
+        +'<div class="card-img-area" onclick="triggerCardUpload('+idx+')">'+imgContent+'</div></div>';
+    }
+
+    const card=document.createElement('div'); card.className='sponsor-card';
+    card.innerHTML=`
+      <div class="card-header" style="background:${sc.bg};display:flex;align-items:center;gap:8px;padding:10px 14px;">
+        <div class="card-num" style="color:${sc.fg}">${sp.num}</div>
+        <div class="card-label" style="flex:1">${sp.label}</div>
+        <div class="card-type">${sp.type}</div>
+        <button class="card-remove-btn" onclick="removeSponsorSlot(${idx})" title="Remove this sponsor slot">&#10005;</button>
+      </div>
+      <div class="card-body">
+        ${occHtml}
+        <div class="field-group">
+          <div class="field-label">Sponsor Name (${occs.length} placement${occs.length!==1?'s':''})</div>
+          <input class="field-input" type="text" placeholder="Enter confirmed sponsor&#8230;"
+            value="${sp.sponsorName}"
+            oninput="sponsors[${idx}].sponsorName=this.value;updateStats()">
+        </div>
+        <div class="field-group">
+          <div class="field-label">Location (editable)</div>
+          <input class="field-input" type="text" value="${sp.location}"
+            oninput="sponsors[${idx}].location=this.value">
+        </div>
+        ${breakHtml}
+        <div class="field-group">
+          <div class="field-label">Box Link${isSpot?' (video creative)':' (sponsor creatives)'}</div>
+          <input class="field-input box-field" type="text" placeholder="Box.com link&#8230;"
+            value="${sp.boxLink}" oninput="sponsors[${idx}].boxLink=this.value">
+        </div>
+        <div class="field-group">
+          <div class="field-label">Contract Notes</div>
+          <input class="field-input" type="text" placeholder="Deliverables, restrictions&#8230;"
+            value="${sp.notes}" oninput="sponsors[${idx}].notes=this.value">
+        </div>
+        <div class="field-group">
+          <div class="field-label">Status</div>
+          <select class="status-sel" id="ss-${idx}" onchange="updateStatus(${idx},this.value)">
+            <option value="Pending"${sp.status==='Pending'?' selected':''}>&#9203; Pending</option>
+            <option value="Confirmed"${sp.status==='Confirmed'?' selected':''}>&#9989; Confirmed</option>
+            <option value="TBD"${sp.status==='TBD'?' selected':''}>&#10067; TBD</option>
+            <option value="Cancelled"${sp.status==='Cancelled'?' selected':''}>&#10060; Cancelled</option>
+          </select>
+        </div>
+        ${logoHtml}
+      </div>`;
+    grid.appendChild(card);
+    const sel=card.querySelector('select'); if(sel) applyStatusClass(sel,sp.status);
+  });
+}
+
+function updateStatus(idx,val){
+  sponsors[idx].status=val;
+  const sel=document.getElementById('ss-'+idx);
+  if(sel) applyStatusClass(sel,val);
+  updateStats();
+}
+function applyStatusClass(sel,val){
+  sel.className='status-sel';
+  if(val) sel.classList.add('s-'+val.toLowerCase());
+}
+
+// ── RENDER GRAPHICS TABLE ─────────────────────────────────────────────────────
+
+function syncSpName(rowIdx,val){
+  rows[rowIdx].sponsorName=val;
+  if(rows[rowIdx].sponsorship){
+    const m=rows[rowIdx].sponsorship.match(/\((\d+)\)/);
+    if(m){ const si=sponsors.findIndex(s=>s.num===parseInt(m[1])); if(si>=0&&!sponsors[si].sponsorName) sponsors[si].sponsorName=val; }
+  }
+}
+
+// ── EXPORT ───────────────────────────────────────────────────────────────────
+function exportCSV(){
+  const hdr=['#','Time','Title','Graphic','Video','Prod Notes','Length','Sponsorship','Sponsor Name','Box Link','Video URL','Notes'];
+  const out=[hdr.join(',')]; let n=0;
+  rows.forEach(r=>{
+    if(r.type==='seg_hdr'||r.type==='break_hdr'){ out.push(['"'+r.title+'"','','','','','','','','','','',''].join(',')); return; }
+    if(r.type!=='content') return; n++;
+    out.push([n,r.time,r.title,r.graphic,r.video,r.prodNote,r.length,r.sponsorship,r.sponsorName,r.boxLink,r.url,r.notes].map(c=>`"${(c||'').toString().replace(/"/g,'""')}"`).join(','));
+  });
+  dl(out.join('\n'),'CUSA_MediaDay_Rundown.csv');
+}
+function exportSponsorCSV(){
+  const hdr=['#','Slot','Sponsor','Segment','Type','Occurrences','Box Link','Notes','Status'];
+  const out=[hdr.join(','),...sponsors.map(s=>[s.num,s.label,s.sponsorName,s.location,s.type,(s.occurrences||[]).length,s.boxLink,s.notes,s.status].map(c=>`"${(c||'').toString().replace(/"/g,'""')}"`).join(','))];
+  dl(out.join('\n'),'CUSA_Sponsorship.csv');
+}
+
+function dl(content,name){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([content],{type:'text/csv;charset=utf-8;'}));
+  a.download=name; a.click();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  loadFromStorage();
+  populateSegFilter();
+  renderRundown();
+  renderDashboard();
+  updateStats();
+  // Show build date if no save exists
+  if(!document.getElementById('lastMod').textContent||document.getElementById('lastMod').textContent==='—'){
+    document.getElementById('lastMod').textContent='Not yet saved (built April 25, 2026)';
+  }
+});
+setInterval(saveAll,60000);
+
+// ── BREAK ASSIGNMENT TOGGLE ─────────────────────────────────────────────────
+function toggleBreak(idx, breakName, el) {
+  if(!sponsors[idx].breakAssignments) sponsors[idx].breakAssignments=[];
+  const arr=sponsors[idx].breakAssignments;
+  const i=arr.indexOf(breakName);
+  if(i===-1){ arr.push(breakName); el.classList.add('active'); }
+  else { arr.splice(i,1); el.classList.remove('active'); }
+  // Update location field to reflect selected breaks
+  if(arr.length>0){
+    sponsors[idx].location=arr.join(', ');
+    const locInput=el.closest('.card-body').querySelector('input[oninput*=".location="]');
+    if(locInput) locInput.value=sponsors[idx].location;
+  }
+}
+
+// ── DELETE RUNDOWN ROW ───────────────────────────────────────────────────────
+// ── DELETE WITH UNDO ────────────────────────────────────────────────────────
+let _deletedRow = null, _deletedIdx = null, _undoTimer = null;
+
+function deleteRundownRow(idx, row) {
+  _deletedRow = JSON.parse(JSON.stringify(row));
+  _deletedIdx = idx;
+  rows.splice(idx, 1);
+  renderRundown();
+  recalcRuntime();
+  showUndoToast('Row deleted.', undoDelete);
+}
+
+function undoDelete() {
+  if (_deletedRow === null) return;
+  rows.splice(_deletedIdx, 0, _deletedRow);
+  _deletedRow = null; _deletedIdx = null;
+  renderRundown();
+  recalcRuntime();
+}
+
+function insertRowBelow(idx, segTitle) {
+  const segColors = getSegColors(segTitle);
+  const newRow = {
+    type:'content', time:'', title:'', graphic:'', video:'',
+    prodNote:'', length:'', sponsorship:'', url:'', segment:segTitle,
+    sponsorName:'', boxLink:'', imageData:'', notes:'',
+    segBg:segColors.bg, segFg:segColors.fg, _new:true
+  };
+  rows.splice(idx+1, 0, newRow);
+  renderRundown();
+  recalcRuntime();
+  // Focus the title cell of the new row
+  setTimeout(()=>{
+    const newEdits = document.querySelectorAll('tr.new-row .inline-edit');
+    if(newEdits.length) newEdits[0].focus();
+  }, 50);
+}
+
+function showUndoToast(msg, undoFn) {
+  clearTimeout(_undoTimer);
+  const existing = document.getElementById('undoToast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className='undo-toast'; toast.id='undoToast';
+  toast.innerHTML=msg+' <button onclick="undoDelete();this.closest(\'.undo-toast\').remove()">UNDO</button>';
+  document.body.appendChild(toast);
+  _undoTimer = setTimeout(()=>{ const t=document.getElementById('undoToast'); if(t)t.remove(); }, 4000);
+}
+
+
+// ── ADD RUNDOWN ROW MODAL ────────────────────────────────────────────────────
+
+
+
+// ── REMOVE SPONSOR SLOT ──────────────────────────────────────────────────────
+function removeSponsorSlot(idx) {
+  if(!confirm('Remove "'+sponsors[idx].label+'" from the Sponsorship Dashboard?')) return;
+  sponsors.splice(idx,1);
+  renderDashboard();
+  updateStats();
+}
+
+// ── ADD SPONSOR SLOT MODAL ───────────────────────────────────────────────────
+function openAddSlotModal() {
+  // Set next slot number
+  const nextNum = sponsors.length>0 ? Math.max(...sponsors.map(s=>s.num))+1 : 1;
+  document.getElementById('addslot-num').value=nextNum;
+  document.getElementById('addSlotModal').classList.add('open');
+}
+function closeAddSlotModal() {
+  document.getElementById('addSlotModal').classList.remove('open');
+}
+function submitAddSlot() {
+  const num   = parseInt(document.getElementById('addslot-num').value)||0;
+  const lbl   = document.getElementById('addslot-label').value.trim();
+  const type  = document.getElementById('addslot-type').value;
+  const loc   = document.getElementById('addslot-location').value.trim();
+  if(!lbl){ alert('Please enter a slot label.'); return; }
+  const fullLabel = lbl.includes('('+num+')')?lbl:lbl+' ('+num+')';
+  sponsors.push({
+    num, label:fullLabel, type, segment:'Show Open', rowContext:'',
+    sponsorName:'', location:loc||'Show Open', imageData:'', boxLink:'',
+    notes:'', status:'Pending', occurrences:[], breakAssignments:[],
+    segBg:'#00263A', segFg:'#FFFFFF'
+  });
+  ['addslot-label','addslot-location'].forEach(id=>{ document.getElementById(id).value=''; });
+  closeAddSlotModal();
+  renderDashboard();
+  updateStats();
+}
+</script>
+
+<!-- ADD SPONSOR SLOT MODAL -->
+<div class="modal-overlay" id="addSlotModal">
+  <div class="modal-box">
+    <h3>Add Sponsor Slot <button class="modal-close" onclick="closeAddSlotModal()">&#10005;</button></h3>
+    <div class="modal-field"><label>Slot Number</label>
+      <input type="number" id="addslot-num" min="1"></div>
+    <div class="modal-field"><label>Slot Label (the number will be appended automatically)</label>
+      <input type="text" id="addslot-label" placeholder="e.g. Sponsor Spot or Title Sponsor"></div>
+    <div class="modal-field"><label>Sponsor Type</label>
+      <select id="addslot-type">
+        <option value="Paid Spot">Paid :30 Spot</option>
+        <option value="Title Sponsor">Title Sponsor</option>
+        <option value="Player Bio Sponsor">Player Bio Sponsor</option>
+        <option value="Impact Player Sponsor">Impact Player Sponsor</option>
+        <option value="Conf. Standings Sponsor">Conf. Standings Sponsor</option>
+        <option value="Billboard Package">Billboard Package</option>
+        <option value="Sponsor">Other Sponsor</option>
+      </select></div>
+    <div class="modal-field"><label>Segment / Location</label>
+      <input type="text" id="addslot-location" placeholder="e.g. SEGMENT 3 - FIU or Break 2"></div>
+    <div class="modal-actions">
+      <button class="btn btn-print" onclick="closeAddSlotModal()">Cancel</button>
+      <button class="btn btn-save" onclick="submitAddSlot()">&#43; Add Sponsor Slot</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
